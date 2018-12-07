@@ -1,0 +1,7 @@
+pool:
+  vmImage: 'ubuntu-16.04'
+
+steps:
+  - script: |
+      - docker pull reactnativecommunity/react-native-android
+      - docker run --rm --name rn-build -v $PWD:/pwd -w /pwd reactnativecommunity/react-native-android bash -c "yarn install && ./gradlew assembleRelease"
