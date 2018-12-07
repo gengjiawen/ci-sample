@@ -6,3 +6,4 @@ Showcase for using ci to build react native app
 
 # CI Currently includes:
 * circleci
+* gitlab
