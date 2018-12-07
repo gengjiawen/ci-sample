@@ -1,0 +1,13 @@
+image: reactnativecommunity/react-native-android
+
+stages:
+  - build
+
+build:
+  stage: build
+  script:
+    - yarn install
+    - ./gradlew assembleRelease
+  artifacts:
+    paths:
+    - android/app/build/outputs/
