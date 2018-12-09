@@ -3,5 +3,5 @@ pool:
 
 steps:
   - script: |
-      - docker pull reactnativecommunity/react-native-android
-      - docker run --rm --name rn-build -v $PWD:/pwd -w /pwd reactnativecommunity/react-native-android bash -c "yarn install && cd android && chmod +x gradlew && ./gradlew assembleRelease"
+      docker pull reactnativecommunity/react-native-android
+      docker run --rm --name rn-build -v $PWD:/pwd -w /pwd reactnativecommunity/react-native-android bash -c "yarn install && cd android && chmod +x gradlew && ./gradlew assembleRelease"
