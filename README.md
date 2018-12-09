@@ -9,3 +9,4 @@ Showcase for using ci to build react native app
 * circleci
 * gitlab
 * travis-ci
+* azcure devops
