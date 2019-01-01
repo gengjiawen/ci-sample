@@ -1,4 +1,6 @@
 image: reactnativecommunity/react-native-android
+before_script:
+  - npm i -g envinfo && envinfo
 
 stages:
   - build
