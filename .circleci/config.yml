@@ -8,18 +8,17 @@ aliases:
     paths:
       - ~/.cache/yarn
     key: v1-yarn-cache-{{ arch }}-{{ checksum "package.json" }}
-  - &restore-cache-gradle
+  - &restore-gradle-cache
     keys:
-      - v1-gradle-{{ arch }}-{{ checksum "android/app/build.gradle" }}
+      - v1-gradle-{{ arch }}-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}
       # Fallback in case checksum fails
-      - v1-gradle-{{ arch }}-{{ checksum "android/build.gradle" }}-
       - v1-gradle-{{ arch }}-
       # Fallback in case this is a first-time run on a fork
       - v1-gradle-master-
-  - &save-cache-gradle
+  - &save-gradle-cache
     paths:
       - ~/.gradle
-    key: v1-gradle-{{ .Branch }}-{{ checksum "android/app/build.gradle" }}
+    key: v1-gradle-{{ arch }}-{{ checksum "android/build.gradle" }}-{{ checksum "android/app/build.gradle" }}
 
 version: 2
 jobs:
@@ -31,11 +30,11 @@ jobs:
       - checkout
       - run: npm i -g envinfo && envinfo
       - restore-cache: *restore-yarn-cache
-      - restore-cache: *restore-cache-gradle
+      - restore-cache: *restore-gradle-cache
       - run: yarn install
       - run: cd android && chmod +x gradlew && ./gradlew assembleRelease
       - save-cache: *save-yarn-cache
-      - save-cache: *save-cache-gradle
+      - save-cache: *save-gradle-cache
 
 workflows:
   version: 2
