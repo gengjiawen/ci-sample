@@ -1,4 +1,27 @@
 version: 2
+aliases:
+  # Cache Management
+  - &restore-yarn-cache
+    keys:
+      - v1-yarn-cache-{{ arch }}-{{ checksum "package.json" }}
+      - v1-yarn-cache-{{ arch }}
+  - &save-yarn-cache
+    paths:
+      - ~/.cache/yarn
+    key: v1-yarn-cache-{{ arch }}-{{ checksum "package.json" }}
+  - &restore-cache-gradle
+    keys:
+      - v1-gradle-{{ .Branch }}-{{ checksum "android/app/build.gradle" }}
+      # Fallback in case checksum fails
+      - v1-gradle-{{ .Branch }}-{{ checksum "android/build.gradle" }}-
+      - v1-gradle-{{ .Branch }}-
+      # Fallback in case this is a first-time run on a fork
+      - v1-gradle-master-
+  - &save-cache-gradle
+    paths:
+      - ~/.gradle
+    - v1-gradle-{{ .Branch }}-{{ checksum "android/app/build.gradle" }}
+
 jobs:
   android:
     working_directory: ~/repo
@@ -7,8 +30,12 @@ jobs:
     steps:
       - checkout
       - run: npm i -g envinfo && envinfo
+      - run: *restore-yarn-cache
+      - run: *restore-cache-gradle
       - run: yarn install
       - run: cd android && chmod +x gradlew && ./gradlew assembleRelease
+      - run: *save-yarn-cache
+      - run: *save-cache-gradle
 
 workflows:
   version: 2
