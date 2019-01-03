@@ -1,4 +1,3 @@
-version: 2
 aliases:
   # Cache Management
   - &restore-yarn-cache
@@ -22,6 +21,7 @@ aliases:
       - ~/.gradle
     key: v1-gradle-{{ .Branch }}-{{ checksum "android/app/build.gradle" }}
 
+version: 2
 jobs:
   android:
     working_directory: ~/repo
