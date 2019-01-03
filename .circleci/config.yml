@@ -30,12 +30,12 @@ jobs:
     steps:
       - checkout
       - run: npm i -g envinfo && envinfo
-      - run: *restore-yarn-cache
-      - run: *restore-cache-gradle
+      - restore-cache: *restore-yarn-cache
+      - restore-cache: *restore-cache-gradle
       - run: yarn install
       - run: cd android && chmod +x gradlew && ./gradlew assembleRelease
-      - run: *save-yarn-cache
-      - run: *save-cache-gradle
+      - save-cache: *save-yarn-cache
+      - save-cache: *save-cache-gradle
 
 workflows:
   version: 2
