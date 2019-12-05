@@ -1,0 +1,13 @@
+image: reactnativecommunity/react-native-android
+
+pipelines:
+  default:
+    - step:
+        name: build
+        script:
+          - npm i -g envinfo && envinfo
+          - yarn install
+          - cd android && chmod +x gradlew
+          - ./gradlew assembleRelease
+        artifacts:
+          - android/app/build/outputs/**
