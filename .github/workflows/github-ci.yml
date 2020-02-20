@@ -1,4 +1,4 @@
-name: Github Actions React Native Android CI
+name: Github Actions RN CI
 
 on: [push]
 
@@ -9,9 +9,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Pull reactnativecommunity/react-native-android image
+    - name: Pull react-native-android docker image
       run: docker pull reactnativecommunity/react-native-android
     - name: Run docker image
       run: docker run --rm --name rn-env reactnativecommunity/react-native-android bash -c "npm i -g envinfo && envinfo"
-    - name: Install dependencies and build application
+    - name: Build application
       run: docker run --rm --name rn-build -v $PWD:/pwd -w /pwd reactnativecommunity/react-native-android bash -c "yarn install && cd android && chmod +x gradlew && ./gradlew assembleRelease"
