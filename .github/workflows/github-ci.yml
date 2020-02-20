@@ -1,4 +1,4 @@
-name: Github Actions RN CI
+name: Github Actions
 
 on: [push]
 
