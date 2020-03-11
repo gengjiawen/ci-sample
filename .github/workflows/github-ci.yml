@@ -1,17 +1,14 @@
 name: Github Actions
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    container: reactnativecommunity/react-native-android
     steps:
     - uses: actions/checkout@v2
-    - name: Pull react-native-android docker image
-      run: docker pull reactnativecommunity/react-native-android
-    - name: Run docker image
-      run: docker run --rm --name rn-env reactnativecommunity/react-native-android bash -c "npm i -g envinfo && envinfo"
+    - name: Envinfo
+      run: npx envinfo
     - name: Build application
-      run: docker run --rm --name rn-build -v $PWD:/pwd -w /pwd reactnativecommunity/react-native-android bash -c "yarn install && cd android && chmod +x gradlew && ./gradlew assembleRelease"
+      run: yarn install && cd android && chmod +x gradlew && ./gradlew assembleRelease
