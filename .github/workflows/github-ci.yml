@@ -1,0 +1,14 @@
+name: Github Actions
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: reactnativecommunity/react-native-android
+    steps:
+    - uses: actions/checkout@v2
+    - name: Envinfo
+      run: npx envinfo
+    - name: Build application
+      run: yarn install && cd android && chmod +x gradlew && ./gradlew assembleRelease
