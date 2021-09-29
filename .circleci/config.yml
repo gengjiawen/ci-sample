@@ -6,7 +6,7 @@ jobs:
       - image: reactnativecommunity/react-native-android
     steps:
       - checkout
-      - run: npm i -g envinfo && envinfo
+      - run: npx envinfo
       - run: yarn install
       - run: cd android && chmod +x gradlew && ./gradlew assembleRelease
 

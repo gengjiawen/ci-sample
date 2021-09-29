@@ -1,6 +1,7 @@
 image: reactnativecommunity/react-native-android
+
 before_script:
-  - npm i -g envinfo && envinfo
+  - npx envinfo
 
 stages:
   - build
@@ -13,4 +14,4 @@ build:
     - ./gradlew assembleRelease
   artifacts:
     paths:
-    - android/app/build/outputs/
+      - android/app/build/outputs/
