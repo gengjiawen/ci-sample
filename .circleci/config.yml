@@ -9,7 +9,7 @@ jobs:
       - run: npx envinfo
       - run: yarn install
       # daemon mode has bug on circleCI
-      - run: cd android && chmod +x gradlew && ./gradlew assembleRelease --no-daemon
+      - run: cd android && chmod +x gradlew && ./gradlew --no-daemon assembleRelease
 
 workflows:
   version: 2
